@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KINZOKU — the steel samurai dog of Solana</title>
+  <meta name="description" content="KINZOKU means metal in Japanese. A fair-launch Solana meme coin: the chrome Tosa Inu samurai dog. Too tough to dump. For entertainment only — no intrinsic value, no expected financial return.">
+  <meta name="theme-color" content="#C8102E">
+  <link rel="canonical" href="https://postwawpl-ship-it.github.io/kinzoku/">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KINZOKU — the steel samurai dog of Solana">
+  <meta property="og:description" content="A fair-launch Solana meme coin. Kinzoku means metal. Too tough to dump. Entertainment only.">
+  <meta property="og:url" content="https://postwawpl-ship-it.github.io/kinzoku/">
+  <meta property="og:image" content="https://postwawpl-ship-it.github.io/kinzoku/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KINZOKU — the steel samurai dog of Solana">
+  <meta name="twitter:description" content="A fair-launch Solana meme coin. Kinzoku means metal. Too tough to dump. Entertainment only.">
+  <meta name="twitter:image" content="https://postwawpl-ship-it.github.io/kinzoku/og-image.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    /* ============================================================
+       KINZOKU site config — edit these three values after launch
+       ============================================================ */
+    const CONTRACT_ADDRESS = ""; // TODO: paste the Solana / Pump.fun contract address here after launch
+    const PUMPFUN_URL = "#";     // TODO: set to the official Pump.fun coin page URL
+    const TWITTER_URL = "#";     // TODO: set to the official X / Twitter profile URL
+    /* ============================================================ */
+  </script>
+
+  <style>
+    :root {
+      --red: #C8102E;
+      --red-hot: #E31B3C;
+      --red-deep: #8E0B20;
+      --red-dark: #140306;
+      --red-mid: #2A0810;
+      --chrome: #F2F2F5;
+      --chrome-mid: #C5C5CC;
+      --chrome-dark: #8E8E96;
+      --white: #FFF8F8;
+      --muted: #F0C9CE;
+      --card: rgba(255, 255, 255, 0.06);
+      --stroke: rgba(242, 242, 245, 0.22);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --radius: 20px;
+      --max: 1080px;
+      --font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+      --font-body: "Nunito", "Noto Sans JP", system-ui, sans-serif;
+      --font-jp: "Noto Sans JP", "Nunito", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--red-dark);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.1' opacity='0.07'%3E%3Cpath d='M-20 40c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M0 40c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M20 40c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M40 40c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M60 40c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M-20 40c0-6 4.5-10 10-10s10 4 10 10'/%3E%3Cpath d='M0 40c0-6 4.5-10 10-10s10 4 10 10'/%3E%3Cpath d='M20 40c0-6 4.5-10 10-10s10 4 10 10'/%3E%3Cpath d='M40 40c0-6 4.5-10 10-10s10 4 10 10'/%3E%3Cpath d='M60 40c0-6 4.5-10 10-10s10 4 10 10'/%3E%3Cpath d='M-10 20c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M10 20c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M30 20c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M50 20c0-11 9-20 20-20s20 9 20 20'/%3E%3Cpath d='M70 20c0-11 9-20 20-20s20 9 20 20'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 40px;
+    }
+
+    .skip {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--white);
+      color: var(--red-dark);
+      padding: 0.6rem 1rem;
+      z-index: 100;
+    }
+    .skip:focus { left: 0.5rem; top: 0.5rem; }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: var(--chrome); }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(20, 3, 6, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--stroke);
+    }
+    header::after {
+      content: "";
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red-deep), var(--chrome-mid) 18%, var(--red) 50%, var(--chrome-mid) 82%, var(--red-deep));
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.7rem 0;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(242, 242, 245, 0.35);
+    }
+    .brand span {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem 0.9rem;
+      list-style: none;
+      margin-left: auto;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 0.25rem 0;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible { color: var(--white); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 48px;
+      padding: 0.7rem 1.35rem;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+    .btn:focus-visible { outline: 3px solid var(--chrome); outline-offset: 3px; }
+    @media (hover: hover) {
+      .btn:hover { transform: translateY(-1px); }
+    }
+    .btn-chrome {
+      background: linear-gradient(180deg, #ffffff 0%, #e4e4ea 46%, #b8b8c0 52%, #f4f4f8 100%);
+      color: #7A0A1C;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--chrome-mid);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+    .btn[aria-disabled="true"] { opacity: 0.85; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 1.5rem 0 3.5rem;
+      background: radial-gradient(ellipse at 50% 0%, #E31B3C 0%, #C8102E 38%, #5A0714 78%, #140306 100%);
+      text-align: center;
+    }
+    .hero .emblem {
+      width: min(72vw, 340px);
+      margin: 0.4rem auto 1.1rem;
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 6px rgba(242, 242, 245, 0.18),
+        0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+    .kicker {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--chrome);
+      margin-bottom: 0.35rem;
+    }
+    .kicker .jp {
+      letter-spacing: 0.28em;
+      color: #fff;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.4rem, 16vw, 7.2rem);
+      line-height: 0.9;
+      letter-spacing: 0.06em;
+      background: linear-gradient(180deg, #ffffff 15%, #d7d7de 48%, #9a9aa4 52%, #f6f6f8 86%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 3px 0 rgba(80, 0, 10, 0.45));
+    }
+    .tagline {
+      margin: 0.6rem auto 0;
+      font-size: clamp(1.15rem, 3.4vw, 1.7rem);
+      font-weight: 800;
+      color: var(--white);
+      max-width: 22em;
+    }
+    .sub {
+      margin: 0.55rem auto 0;
+      max-width: 34em;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0 1.6rem;
+    }
+    .cta .btn { min-width: 200px; }
+
+    .contract {
+      width: min(640px, 100%);
+      margin: 0 auto;
+      background: rgba(10, 1, 3, 0.45);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      text-align: left;
+    }
+    .contract-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .contract-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .contract-addr {
+      flex: 1;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.92rem;
+      word-break: break-all;
+      color: var(--chrome);
+    }
+    .copy-btn {
+      flex-shrink: 0;
+      min-height: 42px;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--chrome-mid);
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .copy-btn:focus-visible { outline: 3px solid var(--chrome); outline-offset: 2px; }
+    .copy-btn.copied { background: #fff; color: #7A0A1C; }
+    .soon-note {
+      margin-top: 0.45rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    main { position: relative; z-index: 1; }
+    section {
+      padding: 3.4rem 0;
+    }
+    section:nth-of-type(even) {
+      background: linear-gradient(180deg, rgba(42, 8, 16, 0.55), rgba(20, 3, 6, 0.2));
+    }
+    .section-kicker {
+      font-family: var(--font-display);
+      letter-spacing: 0.16em;
+      color: var(--chrome-mid);
+      font-size: 1.05rem;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 7vw, 3.6rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin: 0.15rem 0 1.1rem;
+    }
+    .lead {
+      max-width: 38em;
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 1.5rem;
+    }
+    .story-card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.3rem 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .story-card p + p { margin-top: 0.95rem; }
+    .slogan {
+      margin-top: 1.2rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      letter-spacing: 0.05em;
+      color: var(--chrome);
+      text-align: center;
+    }
+
+    /* Tokenomics grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 1.15rem 1.15rem 1.2rem;
+    }
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: 0.04em;
+      margin: 0.15rem 0 0.35rem;
+    }
+    .card p { color: var(--muted); font-size: 0.98rem; }
+    .icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #ffffff, #c8c8d0);
+      color: #7A0A1C;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    /* Roadmap */
+    .phases {
+      display: grid;
+      gap: 0.9rem;
+    }
+    .phase {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.9rem 1rem;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 1.1rem 1.15rem;
+    }
+    .phase-num {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: 0.06em;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #fff, #c0c0c8);
+      color: #7A0A1C;
+      box-shadow: inset 0 1px 0 #fff;
+    }
+    .phase h3 {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .phase p { color: var(--muted); }
+
+    /* How to buy */
+    .steps { counter-reset: step; display: grid; gap: 0.8rem; }
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.9rem;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 1.05rem 1.15rem;
+    }
+    .step::before {
+      content: counter(step);
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--red);
+      border: 2px solid var(--chrome-mid);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .step h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.15rem;
+    }
+    .step p { color: var(--muted); font-size: 0.98rem; }
+
+    .note {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 2.4rem 0 2.8rem;
+      background: #0C0204;
+      border-top: 1px solid var(--stroke);
+    }
+    footer .disclaimer {
+      font-size: 0.86rem;
+      color: #d7a8ae;
+      max-width: 58em;
+      margin-bottom: 1.2rem;
+    }
+    footer nav { display: flex; flex-wrap: wrap; gap: 0.8rem 1.2rem; }
+    footer a { color: var(--chrome); text-decoration: none; font-weight: 700; }
+    footer a:hover, footer a:focus-visible { text-decoration: underline; }
+    footer small { display: block; margin-top: 1.1rem; color: #9a6a70; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.2rem;
+      transform: translateX(-50%) translateY(120%);
+      background: #fff;
+      color: #7A0A1C;
+      font-weight: 800;
+      padding: 0.7rem 1.15rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      z-index: 80;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .toast { transition: none; }
+    }
+
+    @media (min-width: 640px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .cta .btn { min-width: 220px; }
+    }
+    @media (min-width: 900px) {
+      .hero { padding: 2rem 0 4.5rem; }
+      .hero .emblem { width: 380px; }
+      .grid { grid-template-columns: 1fr 1fr 1fr; }
+      .grid .card.span-2 { grid-column: span 2; }
+      .phases { grid-template-columns: 1fr 1fr; }
+      .wrap { width: min(var(--max), calc(100% - 3rem)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <img src="mark.jpg" width="42" height="42" alt="">
+        <span>KINZOKU</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#story">Story</a></li>
+        <li><a href="#tokenomics">Tokenomics</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#buy">How to buy</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div id="top" class="hero">
+    <div class="wrap">
+      <img class="emblem" src="emblem.jpg" width="640" height="640" alt="KINZOKU: a smiling chrome-silver Tosa Inu in a white samurai headband with a red circle">
+      <p class="kicker"><span class="jp">金属</span> · metal in Japanese</p>
+      <h1>KINZOKU</h1>
+      <p class="tagline">The steel samurai dog of Solana</p>
+      <p class="sub">A chrome Tosa Inu, forged for honor and memes. Fair launch on Pump.fun. Too tough to dump.</p>
+      <div class="cta">
+        <a class="btn btn-chrome" data-link="pumpfun" href="#">Buy on Pump.fun</a>
+        <a class="btn btn-ghost" data-link="twitter" href="#">X / Twitter</a>
+      </div>
+      <div class="contract" id="contract">
+        <div class="contract-label">Contract address</div>
+        <div class="contract-row">
+          <code class="contract-addr" id="contract-address">Coming soon</code>
+          <button type="button" class="copy-btn" id="copy-btn">Copy</button>
+        </div>
+        <p class="soon-note" id="contract-note">Token is not live yet. The official address will appear here after launch.</p>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section id="story">
+      <div class="wrap">
+        <p class="section-kicker">Lore</p>
+        <h2>Forged, not farmed</h2>
+        <div class="story-card">
+          <p>Once, at the edge of the Solana chain, a smith melted leftover chrome together with leftover courage and poured both into a Tosa Inu mold — a Japanese fighting dog, recast as a smiling slab of steel.</p>
+          <p>The dog that walked out wore a samurai headband, a mirror-bright coat, and an honor code older than any candlestick chart. He does not flinch. He does not fold. Paper paws bounce off him like rain off a temple roof.</p>
+          <p>While other coins chase every candle, KINZOKU holds the line. No miracle promises. Just a metal mutt with a stubborn streak and a very shiny head.</p>
+          <p class="slogan">Too tough to dump.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tokenomics">
+      <div class="wrap">
+        <p class="section-kicker">The metal</p>
+        <h2>Tokenomics</h2>
+        <p class="lead">Simple, public, and boring in the ways that matter. What you see on-chain is what exists.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="icon" aria-hidden="true">1B</div>
+            <h3>1,000,000,000 supply</h3>
+            <p>One billion tokens — the Pump.fun standard. No extra mint, no surprise stash around the corner.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">P</div>
+            <h3>Fair launch</h3>
+            <p>Launching on Pump.fun. Same bonding curve as everyone else. No private round, no presale list.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">0</div>
+            <h3>No hidden wallet</h3>
+            <p>No stealth team allocation tucked in a side wallet. No presale. No “trust me bro” treasury.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">!</div>
+            <h3>Dev transparency</h3>
+            <p>The creator may hold a small bag after launch and will disclose that wallet publicly. No silent stacks.</p>
+          </article>
+          <article class="card span-2">
+            <div class="icon" aria-hidden="true">?</div>
+            <h3>No unverified tax claims</h3>
+            <p>We will not advertise buy or sell taxes, auto-burns, or “safu” mechanics we cannot show you on-chain. If it is not in the contract, it is not a feature.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="wrap">
+        <p class="section-kicker">The path</p>
+        <h2>Roadmap</h2>
+        <p class="lead">A map of goals, not a schedule and not a guarantee. No dates. No price targets. No promised riches.</p>
+        <div class="phases">
+          <article class="phase">
+            <div class="phase-num" aria-hidden="true">01</div>
+            <div>
+              <h3>Forge</h3>
+              <p>Launch KINZOKU on Pump.fun, ship this website, and open the official X account so people can find the real dog.</p>
+            </div>
+          </article>
+          <article class="phase">
+            <div class="phase-num" aria-hidden="true">02</div>
+            <div>
+              <h3>Pack</h3>
+              <p>Grow a community, drop memes, and gather holders who actually like the dog — not just the ticker.</p>
+            </div>
+          </article>
+          <article class="phase">
+            <div class="phase-num" aria-hidden="true">03</div>
+            <div>
+              <h3>Dojo</h3>
+              <p>Aim to graduate from Pump.fun to a DEX. Apply for DexScreener and CoinGecko listings. These are goals, not promises.</p>
+            </div>
+          </article>
+          <article class="phase">
+            <div class="phase-num" aria-hidden="true">04</div>
+            <div>
+              <h3>Legend</h3>
+              <p>Merch, community ideas, and whatever the pack wants to build next. The story stays in the hands of the holders.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy">
+      <div class="wrap">
+        <p class="section-kicker">The gate</p>
+        <h2>How to buy</h2>
+        <p class="lead">Five steps. Take your time. Only use the contract address published on this page or the official X account.</p>
+        <div class="steps">
+          <article class="step">
+            <div>
+              <h3>Get a Phantom wallet</h3>
+              <p>Install Phantom in your browser or on your phone and write down the secret phrase offline. Never share it with anyone — not even us.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Get a little SOL</h3>
+              <p>Buy SOL on an exchange you trust and withdraw it to your Phantom address on the Solana network. Leave a bit extra for fees.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Go to Pump.fun</h3>
+              <p>Open Pump.fun and connect your Phantom wallet. Use the official Buy button on this site once the token is live.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Paste the contract</h3>
+              <p>Copy the KINZOKU contract address from the box at the top of this page and paste it into Pump.fun. Double-check every character.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div>
+              <h3>Swap SOL for KINZOKU</h3>
+              <p>Choose the amount, confirm the swap in Phantom, and you are in the pack. If something looks off, do not sign.</p>
+            </div>
+          </article>
+        </div>
+        <p class="note">The official Pump.fun link and contract address will be filled in here at launch. Until then, there is nothing to buy.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="disclaimer">KINZOKU is a meme coin created for entertainment. It has no intrinsic value and no expected financial return. Nothing on this website is financial advice, an offer of securities, or a promise of profit, utility, or future listings. Cryptocurrency is highly risky — you can lose everything you put in. Do your own research, never invest money you cannot afford to lose, and do not bet the rent. This project is not affiliated with Pump.fun, Phantom, Solana, DexScreener, or CoinGecko.</p>
+      <nav>
+        <a data-link="pumpfun" href="#">Pump.fun</a>
+        <a data-link="twitter" href="#">X / Twitter</a>
+        <a href="#tokenomics">Tokenomics</a>
+        <a href="#buy">How to buy</a>
+      </nav>
+      <small>KINZOKU · 金属 · the steel samurai dog of Solana</small>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      const address = (typeof CONTRACT_ADDRESS === "string" ? CONTRACT_ADDRESS : "").trim();
+      const pump = (typeof PUMPFUN_URL === "string" && PUMPFUN_URL.trim()) ? PUMPFUN_URL.trim() : "#";
+      const twitter = (typeof TWITTER_URL === "string" && TWITTER_URL.trim()) ? TWITTER_URL.trim() : "#";
+
+      document.querySelectorAll('[data-link="pumpfun"]').forEach(function (el) {
+        el.setAttribute("href", pump);
+        if (pump === "#") {
+          el.setAttribute("aria-disabled", "true");
+          el.addEventListener("click", function (e) { e.preventDefault(); showToast("Pump.fun link coming at launch"); });
+        } else {
+          el.setAttribute("target", "_blank");
+          el.setAttribute("rel", "noopener noreferrer");
+        }
+      });
+      document.querySelectorAll('[data-link="twitter"]').forEach(function (el) {
+        el.setAttribute("href", twitter);
+        if (twitter === "#") {
+          el.setAttribute("aria-disabled", "true");
+          el.addEventListener("click", function (e) { e.preventDefault(); showToast("Official X link coming at launch"); });
+        } else {
+          el.setAttribute("target", "_blank");
+          el.setAttribute("rel", "noopener noreferrer");
+        }
+      });
+
+      const addrEl = document.getElementById("contract-address");
+      const noteEl = document.getElementById("contract-note");
+      const copyBtn = document.getElementById("copy-btn");
+
+      if (address) {
+        addrEl.textContent = address;
+        noteEl.textContent = "Always compare this address with the official X account before you buy.";
+      } else {
+        addrEl.textContent = "Coming soon";
+      }
+
+      copyBtn.addEventListener("click", function () {
+        if (!address) {
+          copyBtn.textContent = "Not live yet";
+          setTimeout(function () { copyBtn.textContent = "Copy"; }, 1600);
+          return;
+        }
+        function ok() {
+          copyBtn.textContent = "Copied";
+          copyBtn.classList.add("copied");
+          setTimeout(function () {
+            copyBtn.textContent = "Copy";
+            copyBtn.classList.remove("copied");
+          }, 1600);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(address).then(ok).catch(function () { fallbackCopy(address, ok); });
+        } else {
+          fallbackCopy(address, ok);
+        }
+      });
+
+      function showToast(message) {
+        var toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+      }
+
+      function fallbackCopy(text, done) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(); } catch (e) { copyBtn.textContent = "Copy failed"; }
+        document.body.removeChild(ta);
+      }
+    })();
+  </script>
+</body>
+</html>
